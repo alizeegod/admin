@@ -137,7 +137,7 @@ npm run lint -- --fix
 Refer to [Documentation](https://panjiachen.github.io/vue-element-admin-site/#/deploy) for more information
 
 ## Changelog
-Detailed changes for each release are documented in the [release notes](https://github.com/PanJiaChen/vue-element-admin/releases).
+Detailed changes for each release are documented in the [release notes](https://github.com/alizeegod/admin/releases).
 
 ## Online Demo
 [Preview](http://panjiachen.github.io/vue-element-admin)
@@ -153,6 +153,6 @@ If you find this project useful, you can buy author a glass of juice :tropical_d
 
 ## License
 
-[MIT](https://github.com/PanJiaChen/vue-element-admin/blob/master/LICENSE)
+[MIT](https://github.com/alizeegod/admin/blob/master/LICENSE)
 
-Copyright (c) 2017-present PanJiaChen
+Copyright (c) 2017-present alizeegod

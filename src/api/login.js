@@ -1,12 +1,13 @@
 import request from '@/utils/request'
+import axios from 'axios'
 
 export function loginByUsername(username, password) {
   const data = {
     username,
     password
   }
-  return request({
-    url: '/login/login',
+  return axios({
+    url: 'http://localhost:3000/api/loginIn',
     method: 'post',
     data
   })

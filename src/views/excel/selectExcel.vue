@@ -4,7 +4,7 @@
     <el-input style='width:340px;' :placeholder="$t('excel.placeholder')" prefix-icon="el-icon-document" v-model="filename"></el-input>
     <el-button style='margin-bottom:20px' type="primary" icon="document" @click="handleDownload" :loading="downloadLoading">{{$t('excel.selectedExport')}}</el-button>
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row @selection-change="handleSelectionChange"
-      ref="multipleTable">
+              ref="multipleTable">
       <el-table-column type="selection" align="center"></el-table-column>
       <el-table-column align="center" label='Id' width="95">
         <template slot-scope="scope">
@@ -37,59 +37,59 @@
 </template>
 
 <script>
-import { fetchList } from '@/api/article'
+  import { fetchList } from '@/api/article'
 
-export default {
-  name: 'selectExcel',
-  data() {
-    return {
-      list: null,
-      listLoading: true,
-      multipleSelection: [],
-      downloadLoading: false,
-      filename: ''
-    }
-  },
-  created() {
-    this.fetchData()
-  },
-  methods: {
-    fetchData() {
-      this.listLoading = true
-      fetchList(this.listQuery).then(response => {
-        this.list = response.data.items
-        this.listLoading = false
-      })
-    },
-    handleSelectionChange(val) {
-      this.multipleSelection = val
-    },
-    handleDownload() {
-      if (this.multipleSelection.length) {
-        this.downloadLoading = true
-        import('@/vendor/Export2Excel').then(excel => {
-          const tHeader = ['Id', 'Title', 'Author', 'Readings', 'Date']
-          const filterVal = ['id', 'title', 'author', 'pageviews', 'display_time']
-          const list = this.multipleSelection
-          const data = this.formatJson(filterVal, list)
-          excel.export_json_to_excel({
-            header: tHeader,
-            data,
-            filename: this.filename
-          })
-          this.$refs.multipleTable.clearSelection()
-          this.downloadLoading = false
-        })
-      } else {
-        this.$message({
-          message: 'Please select at least one item',
-          type: 'warning'
-        })
+  export default {
+    name: 'selectExcel',
+    data() {
+      return {
+        list: null,
+        listLoading: true,
+        multipleSelection: [],
+        downloadLoading: false,
+        filename: ''
       }
     },
-    formatJson(filterVal, jsonData) {
-      return jsonData.map(v => filterVal.map(j => v[j]))
+    created() {
+      this.fetchData()
+    },
+    methods: {
+      fetchData() {
+        this.listLoading = true
+        fetchList(this.listQuery).then(response => {
+          this.list = response.data.items
+          this.listLoading = false
+        })
+      },
+      handleSelectionChange(val) {
+        this.multipleSelection = val
+      },
+      handleDownload() {
+        if (this.multipleSelection.length) {
+          this.downloadLoading = true
+          import('@/vendor/Export2Excel').then(excel => {
+            const tHeader = ['Id', 'Title', 'Author', 'Readings', 'Date']
+            const filterVal = ['id', 'title', 'author', 'pageviews', 'display_time']
+            const list = this.multipleSelection
+            const data = this.formatJson(filterVal, list)
+            excel.export_json_to_excel({
+              header: tHeader,
+              data,
+              filename: this.filename
+            })
+            this.$refs.multipleTable.clearSelection()
+            this.downloadLoading = false
+          })
+        } else {
+          this.$message({
+            message: 'Please select at least one item',
+            type: 'warning'
+          })
+        }
+      },
+      formatJson(filterVal, jsonData) {
+        return jsonData.map(v => filterVal.map(j => v[j]))
+      }
     }
   }
-}
 </script>
